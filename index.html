@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VanishX17 - Premium Roblox Cheat</title>
+    <title>VanishX - Ultimate Invisible Cheat</title>
     <style>
         * {
             margin: 0;
@@ -113,6 +113,56 @@
             line-height: 1.6;
         }
         
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .link-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .link-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .link-content {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-bottom: 1rem;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
         .instructions {
             background: rgba(255, 255, 255, 0.05);
             padding: 3rem;
@@ -194,7 +244,7 @@
                 font-size: 3rem;
             }
             
-            .features {
+            .features, .links {
                 grid-template-columns: 1fr;
             }
         }
@@ -203,28 +253,42 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>VANISH X17</h1>
-            <p class="subtitle">The Ultimate Roblox Premium Cheat</p>
+            <h1>VANISH X</h1>
+            <p class="subtitle">The Ultimate Roblox Invisible Cheat!</p>
             <a href="key" class="cta-button">GET YOUR KEY NOW</a>
         </div>
         
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <div class="feature-title">Perfect Aimbot</div>
-                <div class="feature-description">Advanced targeting system with customizable settings for precise aiming.</div>
+                <div class="feature-icon">👻</div>
+                <div class="feature-title">Complete Invisibility</div>
+                <div class="feature-description">Become completely invisible to other players while maintaining full functionality.</div>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">👁️</div>
-                <div class="feature-title">ESP & Wallhacks</div>
-                <div class="feature-description">See players through walls with detailed information and distance tracking.</div>
+                <div class="feature-icon">🏃‍♂️</div>
+                <div class="feature-title">Move While Invisible</div>
+                <div class="feature-description">Run, jump, and move freely while remaining completely hidden from other players.</div>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title">Speed & Fly</div>
-                <div class="feature-description">Enhanced movement capabilities including speed hack and flying.</div>
+                <div class="feature-icon">🎮</div>
+                <div class="feature-title">Beautiful GUI</div>
+                <div class="feature-description">Easy-to-use interface with toggle options and customization settings.</div>
+            </div>
+        </div>
+
+        <div class="links">
+            <div class="link-card">
+                <div class="link-title">📱 Join Our Discord</div>
+                <div class="link-content">discord.gg/Jk3JrYNKMS</div>
+                <button class="copy-btn" onclick="copyToClipboard('discord.gg/Jk3JrYNKMS')">Copy Link</button>
+            </div>
+            
+            <div class="link-card">
+                <div class="link-title">📜 Script Loadstring</div>
+                <div class="link-content">loadstring(game:HttpGet("https://raw.githubusercontent.com/kjell1711/Kjellcheats/refs/heads/main/Invisibility.lua"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kjell1711/Kjellcheats/refs/heads/main/Invisibility.lua\"))()')">Copy Script</button>
             </div>
         </div>
         
@@ -234,7 +298,7 @@
                 <div class="step">Get your free key from the key generator</div>
                 <div class="step">Execute the script in your Roblox executor</div>
                 <div class="step">Enter your key in the verification system</div>
-                <div class="step">Enjoy premium features in your games</div>
+                <div class="step">Toggle invisibility and enjoy!</div>
             </div>
         </div>
         
@@ -244,6 +308,17 @@
     <div class="particles" id="particles"></div>
 
     <script>
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Error copying: ', err);
+                alert('Error copying. Please copy manually.');
+            });
+        }
+
+        // Partikel-Animation für Hintergrund
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 30;
