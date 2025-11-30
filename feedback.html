@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - VanishX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        
+        .feedback-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            background: #e0e0e0;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.3);
+        }
+        
+        .submit-btn:active:not(:disabled) {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        .submit-btn:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .cooldown-message {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .error-message {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .feedback-form {
+                padding: 2rem;
+            }
+            
+            .back-btn {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/>
+        </svg>
+        Back
+    </a>
+    
+    <div class="container">
+        <h1>Feedback</h1>
+        <p class="subtitle">We'd love to hear your thoughts or suggestions</p>
+        
+        <form class="feedback-form" id="feedbackForm">
+            <div class="form-group">
+                <label for="feedbackTitle">Title</label>
+                <input type="text" id="feedbackTitle" class="form-control" placeholder="Brief title for your feedback" required>
+            </div>
+            <div class="form-group">
+                <label for="feedbackMessage">Message</label>
+                <textarea id="feedbackMessage" class="form-control" placeholder="Please describe your feedback in detail..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/>
+                </svg>
+                Send Feedback
+            </button>
+            <div class="cooldown-message" id="cooldownMessage"></div>
+        </form>
+        
+        <div id="messageContainer"></div>
+    </div>
+    
+    <div class="particles" id="particles"></div>
+
+    <script>
+        // Cooldown in Minuten
+        const COOLDOWN_MINUTES = 5;
+        const COOLDOWN_MS = COOLDOWN_MINUTES * 60 * 1000;
+        
+        // Discord Webhook URL
+        const WEBHOOK_URL = 'https://discordapp.com/api/webhooks/1444761666515501203/uozAYM8DXmyvwtyCioOYl3TJLQ3l1CO_KymS_USf9nHIhrYaJFS3ehnsUnmvYzJdJkMO';
+        
+        // Elemente
+        const feedbackForm = document.getElementById('feedbackForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const cooldownMessage = document.getElementById('cooldownMessage');
+        const messageContainer = document.getElementById('messageContainer');
+        
+        // Prüfe Cooldown beim Laden der Seite
+        function checkCooldown() {
+            const lastSubmission = localStorage.getItem('lastFeedbackSubmission');
+            
+            if (lastSubmission) {
+                const timeSinceLastSubmission = Date.now() - parseInt(lastSubmission);
+                
+                if (timeSinceLastSubmission < COOLDOWN_MS) {
+                    const remainingTime = COOLDOWN_MS - timeSinceLastSubmission;
+                    const remainingMinutes = Math.ceil(remainingTime / (60 * 1000));
+                    
+                    submitBtn.disabled = true;
+                    cooldownMessage.textContent = `Please wait ${remainingMinutes} minute(s) before submitting another feedback.`;
+                    
+                    // Aktualisiere die Nachricht jede Minute
+                    setTimeout(checkCooldown, 60000);
+                } else {
+                    submitBtn.disabled = false;
+                    cooldownMessage.textContent = '';
+                }
+            } else {
+                submitBtn.disabled = false;
+                cooldownMessage.textContent = '';
+            }
+        }
+        
+        // Nachricht anzeigen
+        function showMessage(message, type) {
+            messageContainer.innerHTML = '';
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
+            messageDiv.textContent = message;
+            
+            messageContainer.appendChild(messageDiv);
+            
+            // Nachricht nach 5 Sekunden ausblenden
+            setTimeout(() => {
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => {
+                    messageContainer.innerHTML = '';
+                }, 500);
+            }, 5000);
+        }
+        
+        // Feedback an Discord senden
+        async function sendFeedback(title, message) {
+            try {
+                const embed = {
+                    title: title,
+                    description: message,
+                    color: 0x3498db,
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: 'Feedback from VanishX Website'
+                    }
+                };
+                
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        embeds: [embed]
+                    })
+                });
+                
+                if (response.ok) {
+                    // Speichere Zeitstempel der letzten Einreichung
+                    localStorage.setItem('lastFeedbackSubmission', Date.now().toString());
+                    return true;
+                } else {
+                    throw new Error('Failed to send feedback');
+                }
+            } catch (error) {
+                console.error('Error sending feedback:', error);
+                return false;
+            }
+        }
+        
+        // Formular absenden
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('feedbackTitle').value.trim();
+            const message = document.getElementById('feedbackMessage').value.trim();
+            
+            if (!title || !message) {
+                showMessage('Please fill in both title and message fields.', 'error');
+                return;
+            }
+            
+            // Prüfe erneut auf Cooldown (falls Seite lange offen war)
+            const lastSubmission = localStorage.getItem('lastFeedbackSubmission');
+            if (lastSubmission && (Date.now() - parseInt(lastSubmission)) < COOLDOWN_MS) {
+                showMessage('Please wait before submitting another feedback.', 'error');
+                checkCooldown();
+                return;
+            }
+            
+            // Deaktiviere Button während des Sendens
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="currentColor"/></svg>Sending...';
+            
+            // Sende Feedback
+            const success = await sendFeedback(title, message);
+            
+            if (success) {
+                showMessage('Thank you for your feedback!', 'success');
+                feedbackForm.reset();
+                checkCooldown(); // Aktualisiere Cooldown-Anzeige
+            } else {
+                showMessage('Sorry, there was an error sending your feedback. Please try again later.', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Partikel-Animation für Hintergrund
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Beim Laden der Seite: Partikel erstellen und Cooldown prüfen
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            checkCooldown();
+        });
+    </script>
+</body>
+</html>
