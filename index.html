@@ -304,6 +304,7 @@
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.8s ease;
+            text-decoration: none;
         }
         
         .feedback-section.visible .feedback-btn {
@@ -319,134 +320,6 @@
         
         .feedback-btn:active {
             transform: translateY(-2px) scale(0.98);
-        }
-        
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .feedback-modal {
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 500px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            transform: translateY(30px) scale(0.95);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .modal-overlay.active .feedback-modal {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-        
-        .modal-header {
-            margin-bottom: 2rem;
-        }
-        
-        .modal-header h2 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #fff, #aaa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .modal-header p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .btn {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-cancel {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-        
-        .btn-cancel:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .btn-submit {
-            background: #fff;
-            color: #000;
-        }
-        
-        .btn-submit:hover {
-            background: #e0e0e0;
         }
         
         .particles {
@@ -526,14 +399,6 @@
                 width: 100%;
                 justify-content: center;
             }
-            
-            .feedback-modal {
-                padding: 1.5rem;
-            }
-            
-            .modal-actions {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -605,37 +470,13 @@
     <!-- Feedback Section -->
     <section class="feedback-section" id="feedback">
         <h2 class="section-title">We Value Your Feedback</h2>
-        <button class="feedback-btn" id="feedbackBtn">
+        <a href="feedback.html" class="feedback-btn" id="feedbackBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16ZM7 9H9V11H7V9ZM11 9H17V11H11V9ZM7 12H9V14H7V12ZM11 12H17V14H11V12Z" fill="currentColor"/>
             </svg>
             Send Feedback
-        </button>
+        </a>
     </section>
-    
-    <!-- Feedback Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="feedback-modal">
-            <div class="modal-header">
-                <h2>Send Feedback</h2>
-                <p>We'd love to hear your thoughts or suggestions</p>
-            </div>
-            <form id="feedbackForm">
-                <div class="form-group">
-                    <label for="feedbackTitle">Title</label>
-                    <input type="text" id="feedbackTitle" class="form-control" placeholder="Brief title for your feedback" required>
-                </div>
-                <div class="form-group">
-                    <label for="feedbackMessage">Message</label>
-                    <textarea id="feedbackMessage" class="form-control" placeholder="Please describe your feedback in detail..." required></textarea>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-cancel" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="btn btn-submit">Send Feedback</button>
-                </div>
-            </form>
-        </div>
-    </div>
     
     <div class="particles" id="particles"></div>
 
@@ -694,90 +535,6 @@
             observer.observe(section);
         });
 
-        // Feedback Modal Funktionen
-        const feedbackBtn = document.getElementById('feedbackBtn');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const feedbackForm = document.getElementById('feedbackForm');
-        
-        // Modal öffnen
-        feedbackBtn.addEventListener('click', () => {
-            modalOverlay.classList.add('active');
-        });
-        
-        // Modal schließen
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            feedbackForm.reset();
-        }
-        
-        cancelBtn.addEventListener('click', closeModal);
-        
-        // Modal schließen, wenn außerhalb geklickt wird
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
-        
-        // Feedback an Discord senden
-        feedbackForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const title = document.getElementById('feedbackTitle').value;
-            const message = document.getElementById('feedbackMessage').value;
-            
-            if (!title.trim() || !message.trim()) {
-                alert('Please fill in both title and message fields.');
-                return;
-            }
-            
-            const submitBtn = feedbackForm.querySelector('.btn-submit');
-            const originalText = submitBtn.textContent;
-            
-            // Button-Status während des Sendens ändern
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            try {
-                const webhookURL = 'https://discordapp.com/api/webhooks/1444761666515501203/uozAYM8DXmyvwtyCioOYl3TJLQ3l1CO_KymS_USf9nHIhrYaJFS3ehnsUnmvYzJdJkMO';
-                
-                const embed = {
-                    title: title,
-                    description: message,
-                    color: 0x3498db,
-                    timestamp: new Date().toISOString(),
-                    footer: {
-                        text: 'Feedback from VanishX Website'
-                    }
-                };
-                
-                const response = await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        embeds: [embed]
-                    })
-                });
-                
-                if (response.ok) {
-                    alert('Thank you for your feedback!');
-                    closeModal();
-                } else {
-                    throw new Error('Failed to send feedback');
-                }
-            } catch (error) {
-                console.error('Error sending feedback:', error);
-                alert('Sorry, there was an error sending your feedback. Please try again later.');
-            } finally {
-                // Button-Status zurücksetzen
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-        
         // Partikel-Animation für Hintergrund
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
