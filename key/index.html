@@ -1,1 +1,319 @@
--- Key website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Generator - VanishX17</title>
+    <style>
+        /* Füge hier den kompletten CSS Code von deiner originalen Key-Seite ein */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 4rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .key-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+        
+        .key-display {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            flex-grow: 1;
+            max-width: 550px;
+            word-break: break-all;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .key-display:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
+        }
+        
+        .copy-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 1.5rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .copy-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.3);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        .copy-btn.copied {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copy-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .copy-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        .instructions {
+            margin-top: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+            to { box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1); }
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(50, 50);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .key-display {
+                font-size: 1.4rem;
+                padding: 1.2rem;
+            }
+            
+            .copy-btn {
+                padding: 1.2rem 2rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get Your Key:</h1>
+        
+        <div class="key-container">
+            <div class="key-display" id="keyDisplay">Loading key...</div>
+            <button class="copy-btn" id="copyBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+                </svg>
+                Copy Key
+            </button>
+        </div>
+        
+        <p class="instructions">
+            Click the button to copy the key to your clipboard.
+        </p>
+        
+        <a href="../" style="color: #fff; margin-top: 2rem; display: inline-block;">← Back to Main Page</a>
+    </div>
+    
+    <div class="particles" id="particles"></div>
+
+    <script>
+        async function loadKey() {
+            try {
+                const response = await fetch('../key.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                document.getElementById('keyDisplay').textContent = data.key;
+                return data.key;
+            } catch (error) {
+                console.error('Error loading key:', error);
+                document.getElementById('keyDisplay').textContent = 'Error loading key';
+                return null;
+            }
+        }
+
+        document.getElementById('copyBtn').addEventListener('click', async function() {
+            const keyText = document.getElementById('keyDisplay').textContent;
+            
+            if (keyText === 'Loading key...' || keyText === 'Error loading key') {
+                alert('Please wait for the key to load or check the connection.');
+                return;
+            }
+            
+            navigator.clipboard.writeText(keyText).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/></svg>Copied!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error copying: ', err);
+                alert('Error copying the key. Please copy manually.');
+            });
+        });
+        
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            loadKey();
+        });
+    </script>
+</body>
+</html>
